@@ -14,6 +14,15 @@ function App() {
     }
   }
 
+  function getTextLength(text: string) {
+    // 모든 줄바꿈을 \n으로 통일
+    if(text){
+      const normalized = text.replace(/\r\n|\r/g, '\n');
+      return normalized.length;
+    }
+  }
+  
+
   return (
     <div>
       <h2>FUCKING IOS TEXTAREA TEST</h2>
@@ -31,7 +40,7 @@ function App() {
                 field.onChange(e)
                 typingChange(e, 100)
               }}/>
-              <p>current typing count : {field.value?.length}</p>
+              <p>current typing count : {getTextLength(field.value)}</p>
               </>
           )}
         />
