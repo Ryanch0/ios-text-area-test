@@ -10,12 +10,18 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"  
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@hookform/devtools": "^4.4.0",
+    "@hookform/resolvers": "^5.0.1",
     "gh-pages": "^6.3.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.55.0",
+    "zod": "link:@hookform/resolvers/zod",
+    "zod-form-data": "^2.0.7",
+    "zod-to-ts": "^1.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
