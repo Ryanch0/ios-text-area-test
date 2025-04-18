@@ -8,6 +8,12 @@ function App() {
     text: zfd.text()
   })
 
+  const typingChange = (e: React.ChangeEvent<HTMLTextAreaElement>, max: number) => {
+    if(e.target.value.length > max){
+      e.target.value = e.target.value.slice(0, max)
+    }
+  }
+
   return (
     <div>
       <h2>FUCKING IOS TEXTAREA TEST</h2>
@@ -23,6 +29,7 @@ function App() {
               value={field.value}
               onChange={e => {
                 field.onChange(e)
+                typingChange(e, 100)
               }}/>
               <p>current typing count : {field.value?.length}</p>
               </>
