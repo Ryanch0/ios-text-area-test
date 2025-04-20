@@ -2,31 +2,20 @@ import RHForm from './RHForm'
 import { zfd } from 'zod-form-data'
 import { Controller } from 'react-hook-form'
 
-
-//TODO 일부 버전의 IOS Safari에서 textarea에 줄바꿈을 넣으면 내부적으로는 2글자 처리, 하지만 UI에 나타나는 글자수는 1개로 취급하는 문제 해결
-
-// 길이 계산 (줄바꿈 1글자)
-const getTextLength = (text: string) =>{
-  // 줄바꿈 정규식
-  const regex = /\r\n|\r/g
-  if (!text) return 0;
-  const normalizedText = text.replace(regex, '\n')
-  return normalizedText.length;
-}
-
-// 실제로 입력을 잘라주는 함수 (줄바꿈 1글자 기준)
+// 일부 버전의 IOS Safari에서 textarea에 줄바꿈을 넣으면 내부적으로는 2글자 처리, 하지만 UI에 나타나는 글자수는 1개로 취급하는 문제 대응 함수
 const getTextareaValueWithIOSLineBreakException = (text: string, max: number) => {
   const processChar = (
     remainingText: string,
     currentCount: number,
     accumulatedResult: string
   ) => {
+    // 재귀함수 종료 조건
     if (currentCount >= max || remainingText.length === 0) {
       return accumulatedResult;
     }
 
     const [firstChar, secondChar] = [remainingText[0], remainingText[1]];
-    
+
     if (firstChar === '\r' && secondChar === '\n') {
       if (currentCount + 1 > max) return accumulatedResult;
       return processChar(
@@ -52,7 +41,7 @@ const getTextareaValueWithIOSLineBreakException = (text: string, max: number) =>
       accumulatedResult + firstChar
     );
   }
-
+  // 초기 호출
   return processChar(text, 0, '');
 }
 
@@ -80,7 +69,7 @@ function App() {
                   field.onChange(refinedText);
                 }}
               />
-              <p>current typing count : {getTextLength(field.value)} / {MAX}</p>
+              <p>current typing count : {(field.value?.length || 0)} / {MAX}</p>
             </>
           )}
         />
